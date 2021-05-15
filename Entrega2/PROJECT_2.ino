@@ -30,15 +30,15 @@ int lux;
 DHT dhtSensor(DHT_PIN, DHT_TYPE); // Defines the sensor dht
 
 // Replace the next variables with your Wi-Fi SSID/Password
-const char *WIFI_SSID = "AulaAutomatica";
-const char *WIFI_PASSWORD = "ticsFcim";
+const char *WIFI_SSID = "******";
+const char *WIFI_PASSWORD = "*****";
 char macAddress[18];
 
 // Add MQTT Broker settings
 const char *MQTT_BROKER_IP = "iiot-upc.gleeze.com";
 const int MQTT_PORT = 1883;
-const char *MQTT_USER = "iiot-upc";
-const char *MQTT_PASSWORD = "cim2020";
+const char *MQTT_USER = "******";
+const char *MQTT_PASSWORD = "****";
 const bool RETAINED = true;
 const int QoS = 0; // Quality of Service for the subscriptions
 
