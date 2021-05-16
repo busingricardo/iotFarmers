@@ -13,15 +13,11 @@
 #define DHT_PIN 23     // Defines pin number to which the sensor is connected
 #define DHT_TYPE DHT11 // Defines the sensor type. It can be DHT11 or DHT22
 
-#define ECHO_PIN 36 // Analog input that receives the echo signal
-#define TRIG_PIN 25 // Digital output that sends the trigger signal
-
 #define RX_PIN 16 // Pinout RX of ESP32
 #define TX_PIN 17 // Pinout TX of ESP32
-#define REFRESH_RATE 2000 // Defined in miliseconds
 
-
-#define ANALOG_BIT_RESOLUTION 12.0
+#define REFRESH_SEND 3000 // Defined in miliseconds
+#define REFRESH_GETDATA 2000 // Defined in miliseconds
 
 DHT dhtSensor(DHT_PIN, DHT_TYPE); // Defines the sensor dht
 
@@ -38,7 +34,6 @@ const char *MQTT_PASSWORD = "******";
 const bool RETAINED = true;
 const int QoS = 0; // Quality of Service for the subscriptions
 
-float distance=0;
 float temperature=0.0;
 float humidity=0.0;
 float latitud;
@@ -50,42 +45,32 @@ PubSubClient mqttClient(wifiClient);
 HardwareSerial SerialGPS(1);
 TinyGPSPlus gps;
 
-
 void setup() {
   Serial.begin(9600); // Starts the serial communication
   Serial.println("\nBooting device...");
   dhtSensor.begin(); // Starts sensor communication
 
-  pinMode(ECHO_PIN, INPUT);  // Sets the ECHO_PIN as an Input
-  pinMode(TRIG_PIN, OUTPUT); // Sets the TRIG_PIN as an Output
-
   SerialGPS.begin(9600, SERIAL_8N1, RX_PIN, TX_PIN); // Starts gps communication with UART
 
   mqttClient.setServer(MQTT_BROKER_IP,
                        MQTT_PORT); // Connect the configured mqtt broker
-  mqttClient.setCallback(
-      callback); // Prepare what to do when a message is recieved
+  mqttClient.setCallback(callback); // Prepare what to do when a message is recieved
 
   connectToWiFiNetwork(); // Connects to the configured network
   connectToMqttBroker();  // Connects to the configured mqtt broker
   setSubscriptions();     // Subscribe defined topics
 
-  TimerHandle_t xTimer = xTimerCreate("sendData", REFRESH_RATE, pdTRUE, (void *) 0, sendData);
-  xTimerStart(xTimer, 0);
+  TimerHandle_t xTimer1 = xTimerCreate("GetData", REFRESH_GETDATA, pdTRUE, (void *) 0, GetData);
+  TimerHandle_t xTimer2 = xTimerCreate("sendData", REFRESH_SEND, pdTRUE, (void *) 0, sendData);
+  
+  xTimerStart(xTimer1, 0);
+  xTimerStart(xTimer2, 0);
 }
 
 void loop() {
   
   checkConnections(); // We check the connection every time
-  temperature = dhtSensor.readTemperature(); // Reads the temperature, it takes
-  humidity = dhtSensor.readHumidity();
-  distance = getDistance();
 
-  if (SerialGPS.available()) {
-    gps.encode(SerialGPS.read()); // Encodes all messages from GPS
-    latitud=gps.location.lat();
-    longitud=gps.location.lng();
-  }
 }
 
 /* Additional functions */
@@ -198,22 +183,19 @@ void publishJSONData(char* Topic) {
   Serial.println(" <= " + String(topic) + ": " + String(buffer));
 }
 
-void sendData(TimerHandle_t xTimer){
+void sendData(TimerHandle_t xTimer1){
   publishJSONData("Vaca1");
   publishJSONData("Vaca2");
   publishJSONData("Vaca3");
 }
 
-float getDistance() {
-  digitalWrite(TRIG_PIN, LOW); // Clear the TRIG_PIN by setting it LOW
-  delayMicroseconds(5);
-
-  // Trigger the sensor by setting the TRIG_PIN to HIGH for 10 microseconds
-  digitalWrite(TRIG_PIN, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIG_PIN, LOW);
-
-  long duration = pulseIn(ECHO_PIN, HIGH); // pulseIn() returns the duration (length of the pulse) in microseconds
-
-  return duration * 0.034 / 2; // Returns the distance in cm
+void GetData(TimerHandle_t xTimer2){
+  temperature = dhtSensor.readTemperature(); 
+  humidity = dhtSensor.readHumidity();
+  
+  if (SerialGPS.available()) {
+    gps.encode(SerialGPS.read()); // Encodes all messages from GPS
+    latitud=gps.location.lat();
+    longitud=gps.location.lng();
+  }
 }
