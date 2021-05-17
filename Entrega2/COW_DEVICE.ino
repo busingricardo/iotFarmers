@@ -7,30 +7,29 @@
 #include <HardwareSerial.h>
 
 // Define new subscription topics here
-#define COMMAND_TOPIC "cmd"
-#define TEST_TOPIC "test"
-
+#define UPDATE_TOPIC "UPD"
+#define RED_PIN 25
 #define DHT_PIN 23     // Defines pin number to which the sensor is connected
 #define DHT_TYPE DHT11 // Defines the sensor type. It can be DHT11 or DHT22
 
 #define RX_PIN 16 // Pinout RX of ESP32
 #define TX_PIN 17 // Pinout TX of ESP32
 
-#define REFRESH_SEND 3000 // Defined in miliseconds
+#define REFRESH_SEND 10000 // Defined in miliseconds
 #define REFRESH_GETDATA 2000 // Defined in miliseconds
 
 DHT dhtSensor(DHT_PIN, DHT_TYPE); // Defines the sensor dht
 
 // Replace the next variables with your Wi-Fi SSID/Password
-const char *WIFI_SSID = "******";
-const char *WIFI_PASSWORD = "******";
+const char *WIFI_SSID = "*********";
+const char *WIFI_PASSWORD = "*********";
 char macAddress[18];
 
 // Add MQTT Broker settings
 const char *MQTT_BROKER_IP = "iiot-upc.gleeze.com";
 const int MQTT_PORT = 1883;
-const char *MQTT_USER = "******";
-const char *MQTT_PASSWORD = "******";
+const char *MQTT_USER = "*********";
+const char *MQTT_PASSWORD = "*********";
 const bool RETAINED = true;
 const int QoS = 0; // Quality of Service for the subscriptions
 
@@ -38,7 +37,7 @@ float temperature=0.0;
 float humidity=0.0;
 float latitud;
 float longitud;
-
+int seq=0;
 WiFiClient wifiClient;
 PubSubClient mqttClient(wifiClient);
 
@@ -49,9 +48,10 @@ void setup() {
   Serial.begin(9600); // Starts the serial communication
   Serial.println("\nBooting device...");
   dhtSensor.begin(); // Starts sensor communication
-
+  
+  pinMode(RED_PIN, OUTPUT); // Pinout as output
   SerialGPS.begin(9600, SERIAL_8N1, RX_PIN, TX_PIN); // Starts gps communication with UART
-
+  
   mqttClient.setServer(MQTT_BROKER_IP,
                        MQTT_PORT); // Connect the configured mqtt broker
   mqttClient.setCallback(callback); // Prepare what to do when a message is recieved
@@ -75,8 +75,8 @@ void loop() {
 
 /* Additional functions */
 void setSubscriptions() {
-  subscribe(COMMAND_TOPIC);
-  subscribe(TEST_TOPIC);
+  subscribe(UPDATE_TOPIC);
+
 }
 
 void subscribe(char *newTopic) {
@@ -89,17 +89,15 @@ void subscribe(char *newTopic) {
 
 void callback(char *topic, byte *payload, unsigned int length) {
   // Register all subscription topics
-  static const String cmdTopicStr = createTopic(COMMAND_TOPIC);
-  static const String testTopicStr = createTopic(TEST_TOPIC);
+  static const String updateTopicStr = createTopic(UPDATE_TOPIC);
 
   String msg = unwrapMessage(payload, length);
   Serial.println(" => " + String(topic) + ": " + msg);
 
   // What to do in each topic case?
-  if (String(topic) == cmdTopicStr) {
-    //TurnOn();    
-  } else if (String(topic) == testTopicStr) {
-   // TurnOn2();// Do some other stuff
+  if (String(topic) == updateTopicStr) {
+    updateSW();    
+
   } else {
     Serial.println("[WARN] - '" + String(topic) +
                    "' topic was correctly subscribed but not defined in the "
@@ -164,18 +162,19 @@ void checkConnections() {
   }
 }
 
-void publishJSONData(char* Topic) {
+void publishCowData(char* Topic) {
   static const String topicStr = createTopic(Topic);
   static const char *topic = topicStr.c_str();
 
   StaticJsonDocument<128> doc; // Create JSON document of 128 bytes
   char buffer[128]; // Create the buffer where we will print the JSON document
                     // to publish through MQTT
-  JsonObject values = doc.createNestedObject("values"); // We can add another Object     
-  values["t"] = temperature;
-  values["h"] = humidity;
-  values["lt"] = latitud;
-  values["lg"] = longitud;
+  doc["t"] = temperature;
+  doc["h"] = humidity;
+  doc["lt"] = RandomFloat(41.912, 41.913);//(float) rand()/ (float) RAND_MAX;
+  doc["lg"] = RandomFloat(2.805, 2.826);                  
+  doc["n"]= random(1,30);
+  doc["hb"]= random(80,99);
   
   // Serialize the JSON document to a buffer in order to publish it
   serializeJson(doc, buffer);
@@ -183,10 +182,10 @@ void publishJSONData(char* Topic) {
   Serial.println(" <= " + String(topic) + ": " + String(buffer));
 }
 
-void sendData(TimerHandle_t xTimer1){
-  publishJSONData("Vaca1");
-  publishJSONData("Vaca2");
-  publishJSONData("Vaca3");
+
+void sendData(TimerHandle_t xTimer1){  
+    publishCowData("Vaca");
+  
 }
 
 void GetData(TimerHandle_t xTimer2){
@@ -198,4 +197,21 @@ void GetData(TimerHandle_t xTimer2){
     latitud=gps.location.lat();
     longitud=gps.location.lng();
   }
+}
+
+float RandomFloat(float a, float b){
+  float random1 =((float) rand()/(float)RAND_MAX);
+  float diff =b-a;
+  float r=random1*diff;
+  return a+r;
+}
+
+void updateSW(){
+  digitalWrite(RED_PIN,HIGH);
+  delay(200);
+  digitalWrite(RED_PIN,LOW);
+  delay(200);
+  digitalWrite(RED_PIN,HIGH);
+  delay(200);
+  digitalWrite(RED_PIN,LOW);
 }
