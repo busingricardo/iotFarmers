@@ -34,8 +34,8 @@ DHT dhtSensor(DHT_PIN, DHT_TYPE); // Defines the sensor dht
 DHT dhtSensor2(DHT2_PIN, DHT2_TYPE); // Defines the sensor dht 2
 
 // Replace the next variables with your Wi-Fi SSID/Password
-const char *WIFI_SSID = "Cal_Bonastre";
-const char *WIFI_PASSWORD = "KLTSPCWMCG8M52";
+const char *WIFI_SSID = "*****";
+const char *WIFI_PASSWORD = "*****";
 char macAddress[18];
 
 // Add MQTT Broker settings
