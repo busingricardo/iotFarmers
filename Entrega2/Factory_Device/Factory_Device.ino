@@ -41,8 +41,8 @@ char macAddress[18];
 // Add MQTT Broker settings
 const char *MQTT_BROKER_IP = "iiot-upc.gleeze.com";
 const int MQTT_PORT = 1883;
-const char *MQTT_USER = "iiot-upc";
-const char *MQTT_PASSWORD = "cim2020";
+const char *MQTT_USER = "*****";
+const char *MQTT_PASSWORD = "*****";
 const bool RETAINED = true;
 const int QoS = 0; // Quality of Service for the subscriptions
 
@@ -92,10 +92,12 @@ void loop() {
 
 void sendData(TimerHandle_t xTimer){
   publishFactoryAmbient("Ambient");
-  publishFactoryReception("Reception");
   publishFactoryAmbientTemp("AmbTemp");
   publishFactoryAmbientHum("AmbHum");
   publishFactoryAmbientLux("AmbLux");
+  
+  publishFactoryReception("Reception");
+  publishFactoryReception1Tnk1Temp("Recep1_Tnk1_T");
 }
 
 /* Additional functions */
@@ -263,8 +265,8 @@ void publishFactoryReception1Tnk1Temp(char* Topic) {
   static const String topicStr = createTopic(Topic);
   static const char *topic = topicStr.c_str();
 
-  mqttClient.publish(topic, String(light).c_str(), RETAINED);
-  Serial.println(" <= " + String(topic) + ": " + String(light));
+  mqttClient.publish(topic, String(temperature_tk1).c_str(), RETAINED);
+  Serial.println(" <= " + String(topic) + ": " + String(temperature_tk1));
 }
 
 void publishFactoryReception1Tnk1Lit(char* Topic) {
