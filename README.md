@@ -1,4 +1,7 @@
 # iotFarmers
+En la raiz se encuentran los ficheros Node-RED de ambas entregas.
 
-Los ficheros de Node-RED son los de la carpeta Raiz, que incluyen lo llevado a cabo en la entrega1 y en la entrega 2.
-En la carpeta Entrega 2 se encuentran los ficheros de la ESP y el node-red entregado en el "draft".
+En el apartado ENTREGA2 se encuentra todos los ficheros (tanto Draft como Final) de la entrega 2.
+
+Dentro de Entrega 2 se pueden observar 2 carpetas con los archivos correspondientes tanto a la ESP como al NODE RED.
+Cada carpeta contiene su propio .ino y su .json.
