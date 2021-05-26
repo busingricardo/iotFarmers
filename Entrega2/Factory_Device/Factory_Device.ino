@@ -7,6 +7,10 @@
 // Define new subscription topics here
 #define COMMAND_TOPIC "cmd"
 #define TEST_TOPIC "test"
+#define TEMP_AMB "AmbTemp"
+#define HUM_AMB "AmbHum"
+#define LUZ_AMB "AmbLux"
+#define LUZ_AMB "AmbLux"
 
 #define DHT_PIN 23     // Defines pin number to which the sensor is connected
 #define DHT_TYPE DHT11 // Defines the sensor type. It can be DHT11 or DHT22
@@ -34,15 +38,15 @@ DHT dhtSensor(DHT_PIN, DHT_TYPE); // Defines the sensor dht
 DHT dhtSensor2(DHT2_PIN, DHT2_TYPE); // Defines the sensor dht 2
 
 // Replace the next variables with your Wi-Fi SSID/Password
-const char *WIFI_SSID = "*****";
-const char *WIFI_PASSWORD = "*****";
+const char *WIFI_SSID = "Cal_Bonastre";
+const char *WIFI_PASSWORD = "KLTSPCWMCG8M52";
 char macAddress[18];
 
 // Add MQTT Broker settings
 const char *MQTT_BROKER_IP = "iiot-upc.gleeze.com";
 const int MQTT_PORT = 1883;
-const char *MQTT_USER = "*****";
-const char *MQTT_PASSWORD = "*****";
+const char *MQTT_USER = "iiot-upc";
+const char *MQTT_PASSWORD = "cim2020";
 const bool RETAINED = true;
 const int QoS = 0; // Quality of Service for the subscriptions
 
@@ -92,12 +96,12 @@ void loop() {
 
 void sendData(TimerHandle_t xTimer){
   publishFactoryAmbient("Ambient");
-  publishFactoryAmbientTemp("AmbTemp");
-  publishFactoryAmbientHum("AmbHum");
-  publishFactoryAmbientLux("AmbLux");
-  
+  //publishFactoryAmbientTemp("AmbTemp");
+  publishData(TEMP_AMB, temperature);
+  publishData(HUM_AMB, humidity);
+  publishData(LUZ_AMB, light);
   publishFactoryReception("Reception");
-  publishFactoryReception1Tnk1Temp("Recep1_Tnk1_T");
+  publishData("Recep1_Tnk1_T", temperature_tk1);
 }
 
 /* Additional functions */
@@ -209,12 +213,14 @@ void publishFactoryAmbient(char* Topic) {
   Serial.println(" <= " + String(topic) + ": " + String(buffer));
 }
 
-void publishFactoryAmbientTemp(char* Topic) {
-  static const String topicStr = createTopic(Topic);
-  static const char *topic = topicStr.c_str();
-
-  mqttClient.publish(topic, String(temperature).c_str(), RETAINED);
-  Serial.println(" <= " + String(topic) + ": " + String(temperature));
+void publishData(char* Topic, float value) {
+  //static const String topicStr = createTopic(Topic);
+  //static const char *topic = topicStr.c_str();
+  String topicStr = createTopic(Topic);
+  const char *topic = topicStr.c_str();
+  
+  mqttClient.publish(topic, String(value).c_str(), RETAINED);
+  Serial.println(" <= " + String(topic) + ": " + String(value));
 }
 
 void publishFactoryAmbientHum(char* Topic) {
