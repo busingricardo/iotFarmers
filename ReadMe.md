@@ -9,7 +9,7 @@ En ella hay los siguientes documentos:
 * Planificación del proyecto - [Ver](/Documentacion/Planificacion)
 * Presupuesto del proyecto - [Ver](/Documentacion/Presupuesto)
 
-Además se ha añadido una carpeta con los ficheros kml que nos proporciona RASP para poder tener las rutas de los comiones y el área por donde se pueden mover las vacas.
+Además se ha añadido una carpeta con los ficheros kml que nos proporcionó RASP para poder tener las rutas de los comiones y el área por donde se pueden mover las vacas.
 * Archivos kml - [Ver](/Documentacion/Ficheros%20kml)
 
 ## [Prototipo](/Prototipo)
