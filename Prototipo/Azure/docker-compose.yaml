@@ -1,0 +1,54 @@
+version: "3.3"
+services:
+
+  # TIMESCALE Database (POSTGRESQL)
+  timescaledb:
+    image: timescale/timescaledb:2.2.1-pg12
+    container_name: timescaledb
+    ports:
+      - 5432:5432
+    env_file: 
+      - .env
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data
+    restart: always
+
+  # MOSQUITTO
+  mosquitto:
+    image: eclipse-mosquitto:1.6.14
+    container_name: mosquitto
+    ports:
+      - 1883:1883
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    restart: always
+
+  # NODE-RED
+  nodered:
+    image: nodered/node-red:1.3.4
+    container_name: nodered
+    environment:
+      - TZ=Europe/Madrid
+    ports:
+      - 1880:1880
+    volumes:
+      - ./node-red:/data
+    restart: always
+
+  # GRAFANA
+  grafana:
+    image: grafana/grafana:7.5.6
+    container_name: grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/log:/var/log/grafana
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+    user: "1000"
+    restart: always
+
+volumes:
+  timescaledb_data:

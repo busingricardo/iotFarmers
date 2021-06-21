@@ -1,0 +1,15 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "node-red-contrib-azure-iot-device": "~0.2.3",
+        "node-red-contrib-re-postgres": "~0.3.2",
+        "node-red-contrib-telegrambot": "~9.4.3",
+        "node-red-contrib-ui-led": "~0.4.9",
+        "node-red-contrib-web-worldmap": "~2.15.3",
+        "node-red-dashboard": "~2.29.1",
+        "node-red-node-random": "~0.4.0"
+    }
+}

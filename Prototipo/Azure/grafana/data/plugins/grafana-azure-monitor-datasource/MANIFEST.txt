@@ -1,0 +1,47 @@
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+{
+  "manifestVersion": "2.0.0",
+  "signatureType": "grafana",
+  "signedByOrg": "grafana",
+  "signedByOrgName": "Grafana Labs",
+  "plugin": "grafana-azure-monitor-datasource",
+  "version": "0.3.1",
+  "time": 1623080410244,
+  "keyId": "7e4d0c6a708866e7",
+  "files": {
+    "query_help.md": "274dd66cad60bbeb2809d05f1b85cbc4b5d9590c52ce4c2a0735459de3704b75",
+    "LICENSE": "23701f6914238b67e1e21285045e24b2cd8c9d7fc61043a95c2e386ae5ec810a",
+    "module.js.map": "0eb16a76e08320e4661ab090246658764d8a1e6d11a107119a8d5d672b805391",
+    "plugin.json": "11de8619cd7f339d01e9369b5b9c4b86c3ad2bb1fda844d5cecd9950ca7e1036",
+    "README.md": "2e89f2bedb61530c0eb467c100e6c18eea017bcbbb1eacd59c5fc9f959efbeb8",
+    "img/grafana_cloud_install.png": "de0984f99db12c8df0b1ca5b464c8ee2b64fa887004379baee5b214e2dfe4d0b",
+    "img/config_4_save_and_test.png": "6ef73a16e406ea0afc1f9e62cca20a016d3cdb6ea970365ff52f46b2139150a5",
+    "img/azure_monitor_network.png": "187a1e6225f8386ede77f67e9960d89a07a186853dd098abe4a34a9aeeb9c180",
+    "img/config_2_azure_monitor_api_details.png": "3ea57e4f3ef0de4549776e0137cc96d0c6ecf08cacb8657ad63262b75725a2a1",
+    "img/config_3_app_insights_api_details.png": "5cf274da2520f14528ea6f8cfa34010db1c956e93ad3f68d8ad3ac319046ff8e",
+    "img/contoso_loans_grafana_dashboard.png": "361b738a282cf20f14637b8350d7699f1aa7818da861ff857b32a2dd1a6bd72b",
+    "img/logo.jpg": "7e4c9af17cf216ca0a729523ecd58887ea375d3ff2ac83b909e1c1015c533173",
+    "img/azure_monitor_cpu.png": "4d81ecd1610ee5640b1d36c90e52bd5d9999d54f40d12da467e7c0fc6f2c5624",
+    "img/grafana_cloud_login.png": "3a416ac82b49af327aa099f8b574813025e841c8f6f9679ac401d85c911c916f",
+    "img/config_1_select_type.png": "624a15102f4c7dd16ace22cf098bd6f8b34a67488881e84f8b14f87492941e77",
+    "module.js": "45394dc85f9cb69efa0932f7ec0fc5c9d2aa67380506f54815cd7af3e86cd35b",
+    "lib/monaco.min.js": "b72d878929719c983dd7b07e340055fb46656b95e601f9a5022304e61714a3ca",
+    "lib/monaco.min.js.map": "4203af8af85ac756a897f84155c7dcce7a0f163a5911a44e92fa31fd771bf73a",
+    "partials/annotations.editor.html": "2e2393ab60cec2d6119ac9025d7037eea93a22ed28a08e563b04616d6578b0ed",
+    "partials/query.editor.html": "784b2e03232ca13cebca2d069c0f56de68451f13e4e0b33497c961d8ae177364",
+    "partials/config.html": "0ee9a03f395b98c559eff6b7868fd73a47b20319d96a77654f7b12c46d379124"
+  }
+}
+-----BEGIN PGP SIGNATURE-----
+Version: OpenPGP.js v4.10.1
+Comment: https://openpgpjs.org
+
+wqAEARMKAAYFAmC+PdoACgkQfk0ManCIZucmfAIHa7Q61NG7DA7ZoVgh27OS
+BzLL9OVWifyOHEkZ7QK2JtqaxhWJlwNwxshZ5sS9Vtc5mScPP/fiTNV+l2RK
+fluDIisCBiheesesGByiwcIT1AHXPIfrfpsL3bw7FC9NSlrg+rbyEpEPMmST
+Nt/ftihKNGz0YSbJmduEZtQv01YxD97CtYSh
+=Z77x
+-----END PGP SIGNATURE-----
