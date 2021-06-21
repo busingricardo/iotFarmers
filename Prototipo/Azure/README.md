@@ -1,15 +1,62 @@
-# Basic IoT App
+# iotFarmers App
 
-Basic deployable IoT application which includes:
+La aplicación desarollada esta instalada en una máquina virtual de Azure. Esta incluye:
 
-- Broker MQTT: mosquitto
-- Timeseries SQL database: TimescaleDB (PostgreSQL)
-- Dashboard: Grafana
-- Application: Node-RED
+* Broker MQTT: mosquitto
+* Timeseries SQL database: TimescaleDB (PostgreSQL)
+* Dashboard: Grafana
+* Application: Node-RED
 
-## Requirements
+## Requerimientos
 
-- Docker
+* Docker & Docker-Compose
+
+### Docker
+
+Para instalarlos seguiremos los siguientes pasos:
+
+1: Update and Upgrade
+```bash
+sudo apt-get update && sudo apt-get upgrade
+```
+2: Download the Convenience Script and Install Docker
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+```
+Execute the script using the command:
+```
+sudo sh get-docker.sh
+```
+3: Add a Non-Root User to the Docker Group
+By default, only users who have administrative privileges (root users) can run containers. If you are not logged in as the root, one option is to use the sudo prefix.
+However, you could also add your non-root user to the Docker group which will allow it to execute docker commands.
+The syntax for adding users to the Docker group is:
+```
+sudo usermod -aG docker [user_name]
+```
+Step 4: Check Docker Version and Info
+Check the version of Docker on your Raspberry Pi by typing:
+```
+docker version
+```
+The output will display the Docker version along with some additional information.
+
+5: Reboot
+```
+sudo reboot –h now
+```
+### Docker-Compose
+1: Instalar Python3
+```
+sudo apt-get install libffi-dev libssl-dev
+sudo apt install python3-dev
+sudo apt-get install -y python3 python3-pip
+```
+2: Instalar docker-compose
+Once you have python and pip installed just run the following command:
+```
+sudo pip3 install docker-compose
+```
 
 ## How to use
 
