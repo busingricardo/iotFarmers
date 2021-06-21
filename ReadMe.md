@@ -22,7 +22,7 @@ El prototipo se ha desarrollado en una máquina virtual de azure y usando docker
     * Camión - [Ver](/Prototipo/Arduino/Camion)
     * Fábrica - [Ver](/Prototipo/Arduino/Fabrica)
     * Vacas y Granjas - [Ver](/Prototipo/Arduino/Vaca_Granja)
-* Azure -[Ver](/Prototipo/Azure)
+* Azure - [Ver](/Prototipo/Azure)
 
 ## Autores
 * [@busingricardo](https://github.com/busingricardo)
