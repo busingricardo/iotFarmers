@@ -1,6 +1,6 @@
 # Prototipo para la Fábrica
 
-Este programa [Fabrica.ino](Fabrica.ino) se encarga de simular el estado ambiente de 2 salas de la fabrica. Las senyales que recoge són temperatura, humedad, presión atmosférica, co2, tvoc y midel la luz de la sala.
+Este programa [Fabrica.ino](Fabrica.ino) se encarga de simular el estado ambiente de 2 salas de la fábrica. Las senyales que recoge son temperatura, humedad, presión atmosférica, co2, tvoc y midel la luz de la sala.
 
 Además también simula la temperatura y humedad exterior.
 
