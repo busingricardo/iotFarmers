@@ -12,16 +12,16 @@ En ella hay los siguientes documentos:
 Además se ha añadido una carpeta con los ficheros kml que nos proporciona RASP para poder tener las rutas de los comiones y el área por donde se pueden mover las vacas.
 * Archivos kml - [Ver](/Documentacion/Ficheros%20kml)
 
-##[Prototipo](/Prototipo)
+## [Prototipo](/Prototipo)
 Para poder que sea mas facil entender el proyecto que queremos desarrollar se ha diseñado un prototipo a modo de ejemplo en el que se simulan distinta sensorica i actuadores.
 Para hacer la simulación se ha desarrollado una solución en Node-RED que se complementa con las simulaciones de distintas motas en C++ de Arduino IDE.
 
 * Node-RED - [Ver](/Documentacion/Node-RED)
 * Arduino
-    * Camión - [Ver](/Documentación/Arduino/Camion)
-    * Fábrica - [Ver](/Documentación/Arduino/Fabrica)
-    * Vacas y Granjas - [Ver](/Documentación/Arduino/Vaca_Granja)
+    * Camión - [Ver](/Documentacion/Arduino/Camion)
+    * Fábrica - [Ver](/Documentacion/Arduino/Fabrica)
+    * Vacas y Granjas - [Ver](/Documentacion/Arduino/Vaca_Granja)
 
 ## Autores
-* @busingricardo
-* @marcbonastre
+* [@busingricardo](https://github.com/busingricardo)
+* [@marcbonastre](https://github.com/marcbonastre)
