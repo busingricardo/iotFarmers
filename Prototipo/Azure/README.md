@@ -63,22 +63,25 @@ sudo pip3 install docker-compose
 1. Clonar el repositorio
 
     ```bash
-    git clone https://github.com/bonastreyair/basic_iot_app.git
+    git clone https://github.com/busingricardo/iotFarmers
     ```
-
-2. Configurar:
+2. Navegar a la carpera iotFarmers/Prototipo/Azure
+```
+cd iotFarmers/Prototipo/Azure
+```
+3. Configurar:
 
     - TimescaleDB Database: **.env** `POSTGRES_USER` and `POSTGRES_PASSWORD`
     - Mosquitto MQTT Broker: **mosquitto/config/mosquitto.conf**
     - Grafana Dashboard: **grafana/grafana.ini**
     - Node-RED Application: **node-red/settings.json**
 
-3. Iniciar la aplicación con docker-compose
+4. Iniciar la aplicación con docker-compose
 
     ```bash
     docker-compose up -d
     ```
 
-4. Create _Database_ and _Table_ using Node-RED
+5. Create _Database_ and _Table_ using Node-RED
 
-5. Connect Grafana to TimescaleDB _Database_
+6. Connect Grafana to TimescaleDB _Database_
